@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Multiplication table</title>
+        <style>
+            table {
+                border-collapse: collapse;
+                border: 2px solid black;
+            }
+
+            th, td {
+                border: 1px solid black;
+                padding: 8px;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <p id="nice"></p>
+        <script>
+            var n = prompt("Enter any number of rows: "); // rows
+            while (n < 2 || n > 10 || isNaN(n)) {
+                alert("Invalid input");
+                n = prompt("AGAIN, Enter any number of rows");
+            }
+            var m = prompt("Enter any number of columns: "); // columns
+            while (m < 2 || m > 10 || isNaN(m)) {
+                alert("Invalid input");
+                m = prompt("AGAIN, Enter any number of columns");
+            }
+
+            var table = "<table>";
+            for (i = 1; i <= n; i++) {
+                table += "<tr>";
+                for (j = 1; j <= m; j++) {
+                    table += "<td>" + i * j + "</td>";
+                }
+                table += "</tr>";
+            }
+            table += "</table>";
+
+            document.getElementById('nice').innerHTML = table;
+        </script>
+    </body>
+</html>

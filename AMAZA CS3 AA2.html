@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learning Website Sign-up</title>
+  <style>
+    input[type="text"], input[type="email"], select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    input[type="text"]:focus, input[type="email"]:focus, select:focus, textarea:focus {
+      border: 1px solid green;
+    }
+    input[type="text"].required:invalid, input[type="email"].required:invalid, select.required:invalid, textarea.required:invalid {
+      border: 1px solid red;
+    }
+    #output {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<form id="signupForm">
+  <fieldset>
+    <legend>Sign Up</legend>
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" class="required" onblur="checkInput(this)" onfocus="clearBorder(this)" required><br>
+    <label for="username">Preferred Username:</label><br>
+    <input type="text" id="username" name="username" class="required" onblur="checkInput(this)" onfocus="clearBorder(this)" required><br>
+    <label for="gender">Gender:</label><br>
+    <select id="gender" name="gender" class="required" onblur="checkInput(this)" onfocus="clearBorder(this)" required>
+      <option value="" disabled selected>Select your gender</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+      <option value="prefer not to mention">Prefer not to mention</option>
+    </select><br>
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password" class="required" onblur="checkInput(this)" onfocus="clearBorder(this)" required><br>
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" class="required" onblur="checkInput(this)" onfocus="clearBorder(this)" required><br>
+    <label for="address">Address:</label><br>
+    <textarea id="address" name="address" rows="4" class="required" onblur="checkInput(this)" onfocus="clearBorder(this)" required></textarea><br>
+    <label for="interest">Your interests:</label><br>
+    <textarea id="interest" name="interest" rows="4"></textarea>
+  </fieldset>
+  <br>
+  <button type="submit">Submit</button>
+  <button type="reset" onclick="clearOutput()">Reset</button>
+</form>
+
+<div id="output"></div>
+
+<script>
+  function checkInput(input) {
+    if (!input.validity.valid) {
+      input.classList.add('required');
+    } else {
+      input.classList.remove('required');
+    }
+  }
+
+  function clearBorder(input) {
+    input.style.border = "1px solid #ccc";
+  }
+
+  function clearOutput() {
+    document.getElementById("output").innerHTML = "";
+  }
+
+  document.getElementById("signupForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    var formData = new FormData(this);
+    var output = "<h2>Sign-up Details:</h2>";
+    formData.forEach(function(value, key) {
+      if(key === "password") {
+        var passwordHidden = value.replace(/./g, '*');
+        output += "<p><strong>" + key + ":</strong> " + passwordHidden + "</p>";
+      } else {
+        output += "<p><strong>" + key + ":</strong> " + value + "</p>";
+      }
+    });
+    document.getElementById("output").innerHTML = output;
+  });
+</script>
+
+</body>
+</html>
